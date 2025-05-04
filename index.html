@@ -1,15 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Math Quiz</title>
-  <script src="script.js" defer></script>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <h1 id="question">Pergunta</h1>
-  <h2 id="firstAnswear">Resposta 1</h2>
-  <h2 id="secondAnswear">Resposta 2</h2>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Quiz</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section>
+      <img
+        src="./assets/gallowsSupport.png"
+        width="500"
+        class="gallow"
+        id="gallowImage"
+      />
+    </section>
+
+    <article class="form">
+      <div class="textContainer">
+        <img src="./assets/textBox.png" width="100" class="textBox" />
+        <h1 class="question" id="question">Pergunta</h1>
+      </div>
+
+      <div class="answearContainer">
+        <div class="answearBoxWrapper">
+          <img src="./assets/textBox.png" width="300" class="answearBox" />
+          <h2 class="answearText" id="firstAnswear">Resposta 1</h2>
+        </div>
+
+        <div class="answearBoxWrapper">
+          <img src="./assets/textBox.png" width="300" class="answearBox" />
+          <h2 class="answearText" id="secondAnswear">Resposta 2</h2>
+        </div>
+      </div>
+
+      <div class="infoContainer">
+        <h2 class="score" id="score">Pontos</h2>
+        <h2 class="wrongAnswear" id="wrongAnswear">Respostas erradas</h2>
+      </div>
+    </article>
+  </body>
 </html>
