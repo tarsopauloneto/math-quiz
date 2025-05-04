@@ -38,14 +38,14 @@ function mostrarPergunta(index) {
     document.getElementById("secondAnswear").textContent = respostas[1];
     document.getElementById("score").textContent = "Pontos: " + score;
     document.getElementById("wrongAnswear").textContent =
-      "Erros: 3/" + wrongAnswear;
+      "Erros: 5/" + wrongAnswear;
     posicaoCorreta = 0;
   } else {
     document.getElementById("firstAnswear").textContent = respostas[1];
     document.getElementById("secondAnswear").textContent = respostas[0];
     document.getElementById("score").textContent = "Pontos: " + score;
     document.getElementById("wrongAnswear").textContent =
-      "Erros: 3/" + wrongAnswear;
+      "Erros: 5/" + wrongAnswear;
     posicaoCorreta = 1;
   }
 }
@@ -59,20 +59,47 @@ function verificarResposta(respostaUsuario) {
     console.log("Wrong! score:", score);
 
     if (wrongAnswear < imagensForca.length) {
-      document.getElementById("gallowImage").src = `./assets/${imagensForca[wrongAnswear]}`;
+      document.getElementById(
+        "gallowImage"
+      ).src = `./assets/${imagensForca[wrongAnswear]}`;
     }
 
     if (wrongAnswear == 5) {
       setTimeout(() => {
         alert("Game Over");
-      }, 100); 
+
+        contador = 0;
+        score = 0;
+        wrongAnswear = 0;
+
+        document.getElementById(
+          "gallowImage"
+        ).src = `./assets/${imagensForca[0]}`;
+        mostrarPergunta(contador);
+      }, 100);
+      return;
     }
+  }
+
+  if (score === 11) {
+    setTimeout(() => {
+      alert("Parabéns você é um gênio da matemática!!");
+
+      contador = 0;
+      score = 0;
+      wrongAnswear = 0;
+
+      document.getElementById(
+        "gallowImage"
+      ).src = `./assets/${imagensForca[0]}`;
+      mostrarPergunta(contador);
+    }, 100);
+    return;
   }
 
   contador = (contador + 1) % perguntas.length;
   mostrarPergunta(contador);
 }
-
 
 mostrarPergunta(contador);
 
