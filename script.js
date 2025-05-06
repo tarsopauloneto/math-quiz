@@ -1,6 +1,7 @@
 let contador = 0;
 let score = 0;
-let wrongAnswear = 0;
+let wrongAnswer = 0;
+let gameEnded = false;
 
 const imagensForca = [
   "gallowsSupport.png",
@@ -171,13 +172,11 @@ const perguntasDificeis = [
   },
 ];
 
-// Função para sortear N perguntas aleatórias de um array
 function sortearPerguntas(array, quantidade) {
   const embaralhado = [...array].sort(() => Math.random() - 0.5);
   return embaralhado.slice(0, quantidade);
 }
 
-// Gerar a sequência completa de perguntas
 let perguntas = [
   ...sortearPerguntas(perguntasFaceis, 2),
   ...sortearPerguntas(perguntasMedias, 5),
@@ -202,34 +201,40 @@ function mostrarPergunta(index) {
     posicaoCorreta = 1;
   }
 
-  document.getElementById("score").textContent = "Pontos: " + score;
-  document.getElementById("wrongAnswear").textContent = "Erros: " + wrongAnswear + "/5";
+  document.getElementById("score").textContent = "Pontos: " + score + "/10";
+  document.getElementById("wrongAnswear").textContent = "Erros: " + wrongAnswer + "/5";
+}
+
+function mostrarResultado(mensagem) {
+  gameEnded = true;
+  document.querySelector(".textContainer").style.display = "none";
+  document.querySelector(".answearContainer").style.display = "none";
+  document.querySelector(".infoContainer").style.display = "none";
+
+  const finalMessage = document.getElementById("finalMessage");
+  finalMessage.style.display = "flex";
+  document.getElementById("finalText").innerHTML = mensagem;
 }
 
 function verificarResposta(respostaUsuario) {
+  if (gameEnded) return;
+
   if (respostaUsuario === posicaoCorreta) {
     score++;
   } else {
-    wrongAnswear++;
-
-    if (wrongAnswear < imagensForca.length) {
-      document.getElementById("gallowImage").src = `./assets/${imagensForca[wrongAnswear]}`;
+    wrongAnswer++;
+    if (wrongAnswer < imagensForca.length) {
+      document.getElementById("gallowImage").src = `./assets/${imagensForca[wrongAnswer]}`;
     }
-
-    if (wrongAnswear === 5) {
-      setTimeout(() => {
-        alert("Game Over");
-        reiniciarJogo();
-      }, 100);
+    if (wrongAnswer === 5) {
+      document.getElementById("gallowImage").src = `./assets/${imagensForca[5]}`;
+      mostrarResultado("Game Over!");
       return;
     }
   }
 
   if (score === 10) {
-    setTimeout(() => {
-      alert("Parabéns você é um gênio da matemática!!");
-      reiniciarJogo();
-    }, 100);
+    mostrarResultado("Parabéns!");
     return;
   }
 
@@ -240,7 +245,8 @@ function verificarResposta(respostaUsuario) {
 function reiniciarJogo() {
   contador = 0;
   score = 0;
-  wrongAnswear = 0;
+  wrongAnswer = 0;
+  gameEnded = false;
   document.getElementById("gallowImage").src = `./assets/${imagensForca[0]}`;
 
   perguntas = [
@@ -249,16 +255,28 @@ function reiniciarJogo() {
     ...sortearPerguntas(perguntasDificeis, 3),
   ];
 
+  const finalMessage = document.getElementById("finalMessage");
+  finalMessage.style.display = "none";
+
+  document.querySelector(".textContainer").style.display = "block";
+  document.querySelector(".answearContainer").style.display = "flex";
+  document.querySelector(".infoContainer").style.display = "flex";
+
   mostrarPergunta(contador);
 }
 
-// Inicia o jogo
 mostrarPergunta(contador);
 
 document.addEventListener("keydown", function (event) {
-  if (event.key === "ArrowLeft") {
-    verificarResposta(0);
-  } else if (event.key === "ArrowRight") {
-    verificarResposta(1);
+  if (gameEnded && event.key === "Enter") {
+    reiniciarJogo();
+  }
+
+  if (!gameEnded) {
+    if (event.key === "ArrowLeft") {
+      verificarResposta(0);
+    } else if (event.key === "ArrowRight") {
+      verificarResposta(1);
+    }
   }
 });
