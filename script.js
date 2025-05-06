@@ -203,7 +203,7 @@ function mostrarPergunta(index) {
   }
 
   document.getElementById("score").textContent = "Pontos: " + score;
-  document.getElementById("wrongAnswear").textContent = "Erros: 5/" + wrongAnswear;
+  document.getElementById("wrongAnswear").textContent = "Erros: " + wrongAnswear + "/5";
 }
 
 function verificarResposta(respostaUsuario) {
