@@ -112,11 +112,44 @@ h1 {
 .wrongAnswear {
   color: var(--purpple);
   font-size: 1.5rem;
-  text-align: center;
+  text-align: right;
+  margin-left: -1.5rem;
 }
 
 .gallow {
     position: absolute;
     left: 10rem;
     bottom: 4rem;
+}
+
+.finalMessage {
+  position: absolute;
+  top: 15rem;
+  right: 18rem;
+  transform: translateY(-50%);
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  display: none;
+}
+
+.finalMessage.show {
+  display: block;
+}
+
+.restartHint {
+  position: absolute;
+  top: 6rem;
+  right: -2.5rem;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--light-gray);
+  text-align: center;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+#finalText {
+  font-size: 32px;
+  color: var(--white);
+  margin-bottom: 20px;
 }
